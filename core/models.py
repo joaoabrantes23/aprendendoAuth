@@ -21,13 +21,13 @@ class CustomUserManager(BaseUserManager):
             registroProfissional = registroProfissional,
             **extra_fields
         )
-        
-        user.set_password(password)
-        user.save()
+        #user.set_password(password)
+        #user.save()
         return user
 
     def create_user(self, email, password, role, nome, telefone, cpf_cnpj, data_nascimento, endereco, registroProfissional, **extra_fields):
         extra_fields.setdefault('is_staff',True)
+        print('alo')
         extra_fields.setdefault('is_active',True)
         extra_fields.setdefault('is_superuser',False)
         return self._create_user(email, password, role, nome, telefone, cpf_cnpj, data_nascimento, endereco, registroProfissional, **extra_fields)
@@ -36,13 +36,14 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_active',True)
         extra_fields.setdefault('is_superuser',True)
+        print('12')
         return self._create_user(email, password, role, nome, telefone, cpf_cnpj, data_nascimento, endereco, registroProfissional, **extra_fields)
 
 def upload_image_pessoa(instance, filename):
     return f"user_images/{instance.cpf_cnpj}/{filename}"
 
 # Create your User Model here.
-class User(AbstractBaseUser,PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     # Abstractbaseuser has password, last_login, is_active by default
 
     TYPE_CHOICES = (
